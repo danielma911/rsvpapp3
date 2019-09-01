@@ -20,6 +20,7 @@ pipeline {
       }
       steps {
         container('python') {
+          sh "pip install --upgrade pip"
           sh "pip install -r requirements.txt"
           sh "python -m pytest tests/test_rsvpapp.py"
           // sh "python -m unittest"
@@ -47,6 +48,7 @@ pipeline {
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
           sh "jx step tag --version \$(cat VERSION)"
+          sh "pip install --upgrade pip"
           sh "pip install -r requirements.txt"
           sh "python -m pytest tests/test_rsvpapp.py"
           // sh "python -m unittest"
