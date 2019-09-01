@@ -1,3 +1,5 @@
+
+
 {{- if .Values.knativeDeploy }}
 {{- else }}
 apiVersion: extensions/v1beta1
@@ -25,8 +27,8 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
 {{- range $pkey, $pval := .Values.env }}
-        - name: {{ $pkey }}
-          value: {{ quote $pval }}
+        - name: MONGODB_HOST
+          value: "mongodb://{{.Release.Name}}-mongodb-replicaset-0.{{.Release.Name}}-mongodb-replicaset,{{.Release.Name}}-mongodb-replicaset-1.{{.Release.Name}}-mongodb-replicaset,{{.Release.Name}}-mongodb-replicaset-2.{{.Release.Name}}-mongodb-replicaset:27017"
 {{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
