@@ -20,8 +20,8 @@ pipeline {
       }
       steps {
         container('python') {
-          sh "pip install --upgrade pip"
-          sh "pip install -r requirements.txt"
+          // sh "pip install --upgrade pip"
+          // sh "pip install -r requirements.txt"
           // sh "python -m pytest tests/test_rsvpapp.py"
           sh "python -m unittest"
           sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
@@ -48,8 +48,8 @@ pipeline {
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
           sh "jx step tag --version \$(cat VERSION)"
-          sh "pip install --upgrade pip"
-          sh "pip install -r requirements.txt"
+          // sh "pip install --upgrade pip"
+          // sh "pip install -r requirements.txt"
           // sh "python -m pytest tests/test_rsvpapp.py"
           sh "python -m unittest"
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
